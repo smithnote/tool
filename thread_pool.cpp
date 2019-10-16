@@ -60,13 +60,12 @@ bool ThreadPool::getTask(std::shared_ptr<PoolTask> &task) {
     while (task_queue_.empty() && runing_) {
         task_queue_cond_.wait(locker);
     }
-    if (runing_) {
-        task = task_queue_.front();
-        task_queue_.pop_back();
-    } else {
+    if (!runing_) {
         task = nullptr;
+        return false;
     }
-    task_queue_mutex_.unlock();
+    task = task_queue_.front();
+    task_queue_.pop_back();
     return true;
 }
 }
