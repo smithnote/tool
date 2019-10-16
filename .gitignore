@@ -1,32 +1,25 @@
-# Prerequisites
-*.d
-
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
-
-# Precompiled Headers
-*.gch
-*.pch
-
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
-
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
-*.exe
-*.out
-*.app
+*
+!*.gitignore
+!GNUmakefile
+!*Makefile.am
+!acsite.m4
+!collect.mk
+!common.mk
+!configure.ac
+!*.sh
+!*.h
+!*.hpp
+!*.cpp
+!*/
+!*.proto
+!*.cc
+!*.py
+!*.cfg
+!*.inl
+!*sql
+!*CMakeLists.txt
+!*.utf8
+!Dockerfile
+.ycm_extra_conf.py
+tags
+build

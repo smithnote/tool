@@ -27,8 +27,9 @@ bool ThreadPool::stop() {
     runing_ = false;
     task_queue_mutex_.unlock();
     task_queue_cond_.notify_all();
-    for (auto &woker: thread_pool_) {
-        woker->join();
+    while (!thread_pool_.empty()) {
+        thread_pool_.back()->join();
+        thread_pool_.pop_back();
     }
     return true;
 }

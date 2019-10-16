@@ -13,7 +13,10 @@ bool ConnectionPool<Conn>::initPool() {
         return true;
     }
     for (size_t i = 0; i < pool_size_; ++i) {
-        conn_pool_.push(std::make_shared<Connection>(Conn()));
+        auto conn = std::make_shared<Connection>(Conn(host_, port_, user_,
+                                                      password_, db_));
+        conn.connect();
+        conn_pool_.push(conn);
     }
     init_ = true;
     keep_alive_thread_ = std::make_shared<std::thread>(&ConnectionPool<Conn>::keepAlive,

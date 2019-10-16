@@ -22,7 +22,10 @@ class ConnectionPool;
 
 class Connection {
   public:
-    Connection() {}
+    Connection(const std::string &host, const std::string &port,
+               const std::string &user, const std::string &password,
+               const std::string &db = "")
+        :host_(host), port_(port), user_(user), password_(password), db_(db) {}
     ~Connection() {}
 
     virtual bool connect() = 0;
@@ -30,6 +33,12 @@ class Connection {
     virtual bool disconnect() = 0;
 
     virtual bool isAlive() = 0;
+  protected:
+    std::string host_;
+    std::string port_;
+    std::string user_;
+    std::string password_;
+    std::string db_;
 };
 
 
@@ -37,6 +46,12 @@ template<class Conn>
 class ConnectionPool {
   public:
     ConnectionPool() : init_(false), running_(false), pool_size_(8) {}
+    ConnectionPool(const std::string &host, const std::string &port,
+                   const std::string &user, const std::string &password,
+                   const std::string &db = "", const bool init = false,
+                   const bool running = false, const size_t pool_size = 8)
+        : host_(host), port_(port), user_(user), password_(password), db_(db),
+          init_(init), running_(running), pool_size_(pool_size) {}
     ~ConnectionPool() {
         running_ = false;
         keep_alive_thread_->join();
@@ -48,10 +63,33 @@ class ConnectionPool {
 
     bool returnConnection(std::shared_ptr<Conn> &conn);
 
+    inline bool setHost(const std::string &host) {
+        host_ = host;
+        return true;
+    }
+    inline bool setPort(const std::string &port) {
+        port_ = port;
+        return true;
+    }
+    inline bool setUser(const std::string &user) {
+        user_ = user;
+        return true;
+    }
+    inline bool setPassword(const std::string &password) {
+        password_ = password;
+        return true;
+    }
+
   private:
     bool keepAlive();
 
   private:
+    std::string host_;
+    std::string port_;
+    std::string user_;
+    std::string password_;
+    std::string db_;
+
     bool init_;
     bool running_;
     int keep_interval_;
