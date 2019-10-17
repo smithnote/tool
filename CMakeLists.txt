@@ -12,7 +12,7 @@ set(THREAD_POOL_FILES thread_pool.cpp)
 add_library(thread_pool SHARED ${THREAD_POOL_FILES})
 install(TARGETS thread_pool DESTINATION lib)
 
-set(CONNECTION_POOL_FILES connection_pool.cpp mysql_connection.cpp redis_connection.cpp)
+set(CONNECTION_POOL_FILES mysql_connection.cpp redis_connection.cpp)
 add_library(connection_pool SHARED ${CONNECTION_POOL_FILES})
 install(TARGETS connection_pool DESTINATION lib)
 

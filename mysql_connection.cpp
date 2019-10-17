@@ -8,12 +8,14 @@
 namespace tool {
 
 bool MysqlConnection::connect() {
-    mysql_init(conn);
+    conn = mysql_init(NULL);
     if (!conn) {
         return false;
     }
-    mysql_real_connect(conn, host_.c_str(), user_.c_str(), password_.c_str(),
-                       db_.c_str(), atoi(port_.c_str()), NULL, 0);
+    if (mysql_real_connect(conn, host_.c_str(), user_.c_str(), password_.c_str(),
+                db_.c_str(), atoi(port_.c_str()), NULL, 0) == NULL) {
+        return false;
+    }
     return true;
 }
 
@@ -23,7 +25,7 @@ bool MysqlConnection::disconnect() {
 }
 
 bool MysqlConnection::isAlive() {
-    return true;
+    return mysql_ping(conn) == 0;
 }
 
 };
