@@ -33,6 +33,11 @@ class ThreadPool {
 
     bool pushTask(const std::shared_ptr<PoolTask> &task);
 
+    inline bool getPoolSize(size_t &pool_size) const {
+        pool_size = thread_pool_.size();
+        return true;
+    }
+
   private:
     bool threadWorker();
 

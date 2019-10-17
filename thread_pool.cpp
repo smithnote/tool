@@ -27,8 +27,9 @@ bool ThreadPool::stop() {
     runing_ = false;
     task_queue_mutex_.unlock();
     task_queue_cond_.notify_all();
-    for (auto &woker: thread_pool_) {
-        woker->join();
+    while (!thread_pool_.empty()) {
+        thread_pool_.back()->join();
+        thread_pool_.pop_back();
     }
     return true;
 }
@@ -60,13 +61,12 @@ bool ThreadPool::getTask(std::shared_ptr<PoolTask> &task) {
     while (task_queue_.empty() && runing_) {
         task_queue_cond_.wait(locker);
     }
-    if (runing_) {
-        task = task_queue_.front();
-        task_queue_.pop_back();
-    } else {
+    if (!runing_) {
         task = nullptr;
+        return false;
     }
-    task_queue_mutex_.unlock();
+    task = task_queue_.front();
+    task_queue_.pop_back();
     return true;
 }
 }
