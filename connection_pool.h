@@ -30,17 +30,13 @@ class Connection {
         disconnect();
     }
 
-    virtual bool connect() {
-        return true;
-    }
+    virtual bool connect() = 0;
 
     virtual bool disconnect() {
         return true;
-    }
+    };
 
-    virtual bool isAlive() {
-        return true;
-    }
+    virtual bool isAlive() = 0;
   protected:
     std::string host_;
     std::string port_;
