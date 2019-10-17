@@ -16,9 +16,7 @@ class RedisConnection: public Connection {
                     const std::string &user, const std::string &password,
                     const std::string &db)
         : Connection(host, port, user, password, db) {}
-    ~RedisConnection() {
-        disconnect();
-    }
+    ~RedisConnection() {}
     
     virtual bool connect();
 
@@ -27,6 +25,7 @@ class RedisConnection: public Connection {
     virtual bool isAlive();
 
   public:
+    redisContext *redis;
 };
 
 

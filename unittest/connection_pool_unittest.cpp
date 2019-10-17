@@ -27,6 +27,7 @@ TEST_F(ConnectionPoolTest, redis_pool_test) {
     ASSERT_EQ(pool->initPool(), true);
     std::shared_ptr<RedisConnection> conn;
     ASSERT_EQ(pool->getConnection(conn), true);
+    pool->returnConnection(conn);
 }
 
 TEST_F(ConnectionPoolTest, mysql_pool_test) {
