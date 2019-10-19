@@ -15,3 +15,9 @@ target_link_libraries(connection_pool_unittest connection_pool
 install(TARGETS connection_pool_unittest DESTINATION bin)
 add_test(NAME unittest_connection_pool COMMAND connection_pool_unittest
          WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
+add_executable(segment_unittest segment_unittest.cpp)
+target_link_libraries(segment_unittest segment gtest pthread)
+install(TARGETS segment_unittest DESTINATION bin)
+add_test(NAME unittest_segment COMMAND segment_unittest
+         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})

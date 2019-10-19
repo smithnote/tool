@@ -6,6 +6,7 @@ cpp的一些常用的工具
 |----|----|
 |[thread_pool 线程池工具](#thread_pool)| :heavy_check_mark:|
 |[connection_pool 连接池工具](#connection_pool)|:heavy_check_mark:|
+|[segment 中文一元二元切词工具](#segment)|:heavy_check_mark:|
 
 ### thread_pool 线程池工具<a id='thread_pool'></a>
 
@@ -106,3 +107,27 @@ int main(int argc, char** argv) {
         pool.returnConnection(conn);
     }
     ```
+
+### segment 中文一元二元切词工具 <a id='segment'></a>
+
+使用方法
+```
+#include "segment.h"
+
+int main(int argc, char** argv) {
+    tool::Segment segment;
+    std::string sentence = "这是一个美好的世界";
+    std::vector<std::string> unigram_vec, bigram_vec;
+    segment.segUnigram(cn_sentence, unigram_vec);// 一元切词
+    segment.segBigram(cn_sentence, bigram_vec);// 二元切词
+    for (auto &w: unigram_vec) {
+        std::cout << w << std::endl;
+    }
+    for (auto &w: bigram_vec) {
+        std::cout << w << std::endl;
+    }
+    return 0;
+}
+
+```
+

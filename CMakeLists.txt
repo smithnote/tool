@@ -16,6 +16,10 @@ set(CONNECTION_POOL_FILES mysql_connection.cpp redis_connection.cpp)
 add_library(connection_pool SHARED ${CONNECTION_POOL_FILES})
 install(TARGETS connection_pool DESTINATION lib)
 
+set(SEGMENT_FILES segment.cpp)
+add_library(segment SHARED ${SEGMENT_FILES})
+install(TARGETS segment DESTINATION lib)
+
 
 enable_testing()
 add_subdirectory(unittest)
