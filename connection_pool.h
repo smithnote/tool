@@ -55,7 +55,7 @@ class ConnectionPool {
                    const std::string &db = "", const bool init = false,
                    const bool running = false, const size_t pool_size = 8)
         : host_(host), port_(port), user_(user), password_(password), db_(db),
-          init_(init), running_(running), pool_size_(pool_size) {}
+          init_(init), running_(running), pool_size_(pool_size), keep_interval_(30) {}
     ~ConnectionPool() {
         if (running_) {
             running_ = false;
@@ -87,6 +87,10 @@ class ConnectionPool {
     }
     inline bool setPoolSize(size_t pool_size) {
         pool_size_ = pool_size;
+        return true;
+    }
+    inline bool setKeepInterval(size_t keep_interval) {
+        keep_interval_ = keep_interval;
         return true;
     }
 

@@ -38,6 +38,7 @@ TEST_F(ConnectionPoolTest, mysql_pool_test) {
     pool->setPort("root");
     pool->setPassword("smithgo");
     pool->setPoolSize(10);
+    pool->setKeepInterval(15);
     ASSERT_EQ(pool->initPool(), true);
     std::shared_ptr<MysqlConnection> conn;
     ASSERT_EQ(pool->getConnection(conn), true);
