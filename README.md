@@ -1,10 +1,11 @@
 # tool
 
 cpp的一些常用的工具
+
 |tool|ok|
 |----|----|
-|* [thread_pool 线程池工具](#thread_pool)| :heavy_check_mark:|
-|* [connection_pool 连接池工具](#connection_pool)|:heavy_check_mark:|
+|[thread_pool 线程池工具](#thread_pool)| :heavy_check_mark:|
+|[connection_pool 连接池工具](#connection_pool)|:heavy_check_mark:|
 
 ### thread_pool 线程池工具<a id='thread_pool'></a>
 
