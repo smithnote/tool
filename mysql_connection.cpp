@@ -14,6 +14,7 @@ bool MysqlConnection::connect() {
     }
     if (mysql_real_connect(conn, host_.c_str(), user_.c_str(), password_.c_str(),
                 db_.c_str(), atoi(port_.c_str()), NULL, 0) == NULL) {
+        std::cerr << mysql_error(conn) << std::endl;
         return false;
     }
     return true;

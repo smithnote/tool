@@ -35,7 +35,7 @@ TEST_F(ConnectionPoolTest, mysql_pool_test) {
     auto pool = std::make_shared<ConnectionPool<MysqlConnection>>();
     pool->setHost("127.0.0.1");
     pool->setPort("3306");
-    pool->setPort("root");
+    pool->setUser("root");
     pool->setPassword("smithgo");
     pool->setPoolSize(10);
     pool->setKeepInterval(15);

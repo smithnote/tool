@@ -59,6 +59,7 @@ class ConnectionPool {
     ~ConnectionPool() {
         if (running_) {
             running_ = false;
+            exit_cond_.notify_all();
             keep_alive_thread_->join();
         }
     }
@@ -110,6 +111,7 @@ class ConnectionPool {
     size_t pool_size_;
     std::mutex pool_mutex_;
     std::condition_variable pool_cond_;
+    std::condition_variable exit_cond_;
     std::queue<std::shared_ptr<Conn>> conn_pool_;
     std::shared_ptr<std::thread> keep_alive_thread_;
 };
@@ -178,8 +180,10 @@ bool ConnectionPool<Conn>::keepAlive() {
             connection->connect();
         }
         returnConnection(connection);
-        // TODO: 释放的时候会等待，后期加notify
-        sleep(keep_interval_);
+        std::mutex mtx;
+        std::unique_lock<std::mutex> locker(mtx);
+        auto now = std::chrono::system_clock::now();
+        exit_cond_.wait_until(locker, now+std::chrono::seconds(keep_interval_));
     }
     return true;
 }
