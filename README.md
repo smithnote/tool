@@ -4,11 +4,11 @@ cpp的一些常用的工具
 
 |tool|ok|
 |----|----|
-|[thread_pool 线程池工具](#thread_pool)| :heavy_check_mark:|
-|[connection_pool 连接池工具](#connection_pool)|:heavy_check_mark:|
-|[segment 中文一元二元切词工具](#segment)|:heavy_check_mark:|
+|[thread_pool 线程池工具](#thread_pool线程池工具)| :heavy_check_mark:|
+|[connection_pool 连接池工具](#connection_pool连接池工具)|:heavy_check_mark:|
+|[segment 中文一元二元切词工具](#segment中文一元二元切词工具)|:heavy_check_mark:|
 
-### thread_pool 线程池工具<a id='thread_pool'></a>
+### thread_pool 线程池工具
 
 使用方法:
 * 继承 tool::PoolTask 类用来实现自己的具体任务
@@ -47,7 +47,7 @@ int main(int argc, char** argv) {
 
 ```
 
-### connection_pool 连接池工具<a id='connection_pool'></a>
+### connection_pool连接池工具
 
 两种使用方法:
 1. 使用内置的两个连接类型 mysql, redis 定义模板类ConnnecctionPool
@@ -108,7 +108,7 @@ int main(int argc, char** argv) {
     }
     ```
 
-### segment 中文一元二元切词工具 <a id='segment'></a>
+### segment中文一元二元切词工具
 
 使用方法
 ```
