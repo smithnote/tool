@@ -27,3 +27,9 @@ target_link_libraries(transform_unittest transform gtest pthread)
 install(TARGETS transform_unittest DESTINATION bin)
 add_test(NAME unittest_transform COMMAND transform_unittest
          WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
+add_executable(hz2py_unittest hz2py_unittest.cpp)
+target_link_libraries(hz2py_unittest hz2py gtest pthread)
+install(TARGETS hz2py_unittest DESTINATION bin)
+add_test(NAME unittest_hz2py COMMAND hz2py_unittest
+         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})

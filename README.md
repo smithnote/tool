@@ -7,6 +7,7 @@ cpp的一些常用的工具
 |[thread_pool 线程池工具](#thread_pool线程池工具)| :heavy_check_mark:|
 |[connection_pool 连接池工具](#connection_pool连接池工具)|:heavy_check_mark:|
 |[segment 中文一元二元切词工具](#segment中文一元二元切词工具)|:heavy_check_mark:|
+|[hz2py 中文转拼音工具](#hz2py中文转拼音工具)|:heavy_check_mark:|
 |[transform 文本转换工具](#transform文本转换工具)|:heavy_check_mark:|
 
 ### thread_pool 线程池工具
@@ -131,6 +132,28 @@ int main(int argc, char** argv) {
 }
 
 ```
+
+### hz2py中文转拼音工具
+利用硬编码直接将拼音数据写入代码中，使用例子
+```
+#include <iostream>
+#include <vector>
+#include "hz2py.h"
+
+int main(int argc, char** argv) {
+    tool::HZ2PY hz2py;
+    std::string src_string = "我爱我的祖国";
+    std::vector<std::string> py_vec;
+    hz2py.toPinYin(src_string, py_vec);
+    for (auto &py: py_vec) {
+        std::cout << py << std::endl;
+    }
+    return 0;
+}
+
+```
+
+
 
 ### transform文本转换工具
 

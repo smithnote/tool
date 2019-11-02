@@ -24,5 +24,9 @@ set(TRANSFORM_FILES transform.cpp)
 add_library(transform SHARED ${TRANSFORM_FILES})
 install(TARGETS transform DESTINATION lib)
 
+set(HZ2PY_FILES hz2py.cpp)
+add_library(hz2py SHARED ${HZ2PY_FILES})
+install(TARGETS hz2py DESTINATION lib)
+
 enable_testing()
 add_subdirectory(unittest)
