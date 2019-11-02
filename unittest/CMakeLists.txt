@@ -1,7 +1,4 @@
-include_directories(/usr/local/include)
-include_directories(${PROJECT_SOURCE_DIR})
-link_directories(/usr/local/lib)
-
+include_directories(${PROJECT_SOURCE_DIR}/src)
 
 add_executable(thread_pool_unittest thread_pool_unittest.cpp)
 target_link_libraries(thread_pool_unittest thread_pool gtest pthread)
