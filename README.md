@@ -147,6 +147,7 @@ int main(int argc, char** argv) {
 int main(int argc, char** argv) {
     std::string src_string = "我爱我的祖国, I love my homeland";
     std::string encode_string, decode_string;
+    tool::Base64 base64;
     base64.encode(src_string, encode_string);
     base64.decode(encode_string, decode_string), true);
     std::cout << "raw_string:" << src_string << std::endl;
