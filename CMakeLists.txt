@@ -20,6 +20,9 @@ set(SEGMENT_FILES segment.cpp)
 add_library(segment SHARED ${SEGMENT_FILES})
 install(TARGETS segment DESTINATION lib)
 
+set(TRANSFORM_FILES transform.cpp)
+add_library(transform SHARED ${TRANSFORM_FILES})
+install(TARGETS transform DESTINATION lib)
 
 enable_testing()
 add_subdirectory(unittest)

@@ -7,6 +7,7 @@ cpp的一些常用的工具
 |[thread_pool 线程池工具](#thread_pool线程池工具)| :heavy_check_mark:|
 |[connection_pool 连接池工具](#connection_pool连接池工具)|:heavy_check_mark:|
 |[segment 中文一元二元切词工具](#segment中文一元二元切词工具)|:heavy_check_mark:|
+|[transform 编码解码工具](#transform文本转换工具)|:heavy_check_mark:|
 
 ### thread_pool 线程池工具
 
@@ -131,3 +132,26 @@ int main(int argc, char** argv) {
 
 ```
 
+### transform文本转换工具
+
+* [base64编码工具](#base64编码工具)
+
+#### base64编码工具
+
+使用方法:直接调用类的两个方法，encode, decode
+
+```
+#include <iostream>
+#include "transform.h"
+
+int main(int argc, char** argv) {
+    std::string src_string = "我爱我的祖国, I love my homeland";
+    std::string encode_string, decode_string;
+    base64.encode(src_string, encode_string);
+    base64.decode(encode_string, decode_string), true);
+    std::cout << "raw_string:" << src_string << std::endl;
+    std::cout << "encode_string:" << encode_string << std::endl;
+    std::cout << "decode_string:" << decode_string << std::endl;
+    return 0;
+}
+```

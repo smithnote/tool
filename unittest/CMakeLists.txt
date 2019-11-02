@@ -21,3 +21,9 @@ target_link_libraries(segment_unittest segment gtest pthread)
 install(TARGETS segment_unittest DESTINATION bin)
 add_test(NAME unittest_segment COMMAND segment_unittest
          WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
+add_executable(transform_unittest transform_unittest.cpp)
+target_link_libraries(transform_unittest transform gtest pthread)
+install(TARGETS transform_unittest DESTINATION bin)
+add_test(NAME unittest_transform COMMAND transform_unittest
+         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
