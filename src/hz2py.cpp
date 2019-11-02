@@ -25,6 +25,15 @@ bool HZ2PY::toPinYin(const std::string &src, std::vector<std::string> &res_vec) 
 }
 
 bool HZ2PY::toJianPin(const std::string &src, std::vector<std::string> &res_vec) const {
+    if (src.empty()) {
+        return false;
+    }
+    if (!toPinYin(src, res_vec) || res_vec.empty()) {
+        return false;
+    }
+    for (auto &py: res_vec) {
+        py = py[0];
+    }
     return true;
 }
 

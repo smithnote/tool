@@ -143,10 +143,14 @@ int main(int argc, char** argv) {
 int main(int argc, char** argv) {
     tool::HZ2PY hz2py;
     std::string src_string = "我爱我的祖国";
-    std::vector<std::string> py_vec;
+    std::vector<std::string> py_vec, jp_vec;
     hz2py.toPinYin(src_string, py_vec);
+    hz2py.toJianPin(src_string, jp_vec);
     for (auto &py: py_vec) {
         std::cout << py << std::endl;
+    }
+    for (auto &jp: jp_vec) {
+        std::cout << jp << std::endl;
     }
     return 0;
 }

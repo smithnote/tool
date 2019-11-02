@@ -19,9 +19,11 @@ class TransformTest: public testing::Test {
 
 TEST_F(TransformTest, base64_test) {
     std::string src_string = "我爱我的祖国";
-    std::vector<std::string> py_vec;
+    std::vector<std::string> py_vec, jp_vec;
     ASSERT_EQ(hz2py.toPinYin(src_string, py_vec), true);
     ASSERT_EQ(py_vec.empty(), false);
+    ASSERT_EQ(hz2py.toJianPin(src_string, jp_vec), true);
+    ASSERT_EQ(jp_vec.empty(), false);
 }
 
 
