@@ -7,7 +7,7 @@ cpp的一些常用的工具
 |[thread_pool 线程池工具](#thread_pool线程池工具)| :heavy_check_mark:|
 |[connection_pool 连接池工具](#connection_pool连接池工具)|:heavy_check_mark:|
 |[segment 中文一元二元切词工具](#segment中文一元二元切词工具)|:heavy_check_mark:|
-|[transform 编码解码工具](#transform文本转换工具)|:heavy_check_mark:|
+|[transform 文本转换工具](#transform文本转换工具)|:heavy_check_mark:|
 
 ### thread_pool 线程池工具
 
