@@ -42,7 +42,7 @@ class HZ2PY {
     // 3. 多音字用空格分割
     // 4. 声调用数字表示
     static const Unicode begin_index_, end_index_;
-    static const std::vector<std::string> pinyin_with_tone_vec_;
+    static const char* pinyin_with_tone_vec_[];
 
 };
 

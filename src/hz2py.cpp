@@ -79,7 +79,7 @@ bool HZ2PY::getPinYinVec(const Unicode unicode,
     if (!isHanUnicode(unicode)) {
         return false;
     }
-    const std::string &pinyins = pinyin_with_tone_vec_[unicode-begin_index_];
+    const char* pinyins = pinyin_with_tone_vec_[unicode-begin_index_];
     std::istringstream iss(pinyins);
     std::string s;
     while (iss >> s) {
@@ -93,7 +93,7 @@ bool HZ2PY::getPinYinVec(const Unicode unicode,
 
 const HZ2PY::Unicode HZ2PY::begin_index_ = 0X4E00;
 const HZ2PY::Unicode HZ2PY::end_index_   = 0X9FA5;
-const std::vector<std::string> HZ2PY::pinyin_with_tone_vec_ = {
+const char* HZ2PY::pinyin_with_tone_vec_[] = {
     "yi1",
     "ding1",
     "kao3",
