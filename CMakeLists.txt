@@ -1,14 +1,17 @@
 cmake_minimum_required(VERSION 2.8)
 project(tool C CXX)
 SET(CMAKE_VERBOSE_MAKEFILE OFF)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 SET(CMAKE_CXX_COMPILER "g++")
-SET(CMAKE_CXX_FLAGS "-D_FILE_OFFSET_BITS=64")
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_FLAGS  "-D_FILE_OFFSET_BITS=64")
 set(CMAKE_CXX_FLAGS_DEBUG "-g")
 set(CMAKE_CXX_FLAGS_RELEASE "-O2 -DNDEBUG")
 
 MESSAGE(STATUS "CMAKE_CXX_FLAGS = " ${CMAKE_CXX_FLAGS})
 
-add_subdirectory(src)
+add_subdirectory(deps)
 
+add_subdirectory(src)
 enable_testing()
 add_subdirectory(unittest)

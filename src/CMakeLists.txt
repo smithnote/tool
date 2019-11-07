@@ -1,9 +1,13 @@
+include_directories(${PROJECT_SOURCE_DIR}/deps/include)
+link_directories(${PROJECT_SOURCE_DIR}/deps/lib)
+
 set(THREAD_POOL_FILES thread_pool.cpp)
 add_library(thread_pool SHARED ${THREAD_POOL_FILES})
 install(TARGETS thread_pool DESTINATION lib)
 
 set(CONNECTION_POOL_FILES mysql_connection.cpp redis_connection.cpp)
 add_library(connection_pool SHARED ${CONNECTION_POOL_FILES})
+add_dependencies(connection_pool deps)
 install(TARGETS connection_pool DESTINATION lib)
 
 set(SEGMENT_FILES segment.cpp)
