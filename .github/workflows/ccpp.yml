@@ -1,0 +1,20 @@
+name: C/C++ CI
+
+on: 
+  push:
+    branches:
+      - master
+      - develop
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v1
+    - name: install dependencies
+      run: apt-get install googletest
+    - name: build project
+      run: ./build.sh
+    - name: unittest
+      run: cd build && make test
