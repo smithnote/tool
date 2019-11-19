@@ -21,3 +21,6 @@ install(TARGETS transform DESTINATION lib)
 set(HZ2PY_FILES hz2py.cpp)
 add_library(hz2py SHARED ${HZ2PY_FILES})
 install(TARGETS hz2py DESTINATION lib)
+
+
+install(DIRECTORY . DESTINATION include FILES_MATCHING PATTERN "*.h")
