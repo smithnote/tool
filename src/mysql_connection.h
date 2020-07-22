@@ -6,6 +6,7 @@
 #define TOOL_MYSQL_CONNECTION_H_
 
 #include <mysql/mysql.h>
+#include <iostream>
 #include "connection_pool.h"
 
 namespace tool {
@@ -14,21 +15,26 @@ class MysqlConnection : public Connection {
   public:
     MysqlConnection(const std::string &host, const std::string &port,
                     const std::string &user, const std::string &password,
-                    const std::string &db)
-        : Connection(host, port, user, password, db), conn(NULL) {}
-    ~MysqlConnection() {
+                    const std::string &db = "")
+        : conn(NULL), host_(host), port_(port), user_(user), password_(password), db_(db) {}
+    virtual ~MysqlConnection() {
         disconnect();
     }
     
-    virtual bool connect();
+    virtual bool connect() override;
 
-    virtual bool disconnect();
+    virtual bool disconnect() override;
 
-    virtual bool isAlive();
+    virtual bool isAlive() override;
 
   public:
     MYSQL *conn;
-
+    
+    std::string host_;
+    std::string port_;
+    std::string user_;
+    std::string password_;
+    std::string db_;
 };
 
 };

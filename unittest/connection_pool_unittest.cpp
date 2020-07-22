@@ -21,10 +21,10 @@ class ConnectionPoolTest: public testing::Test {
 
 TEST_F(ConnectionPoolTest, redis_pool_test) {
     using namespace tool;
+    std::string host("localhost");
+    std::string port("6379");
     auto pool = std::make_shared<ConnectionPool<RedisConnection>>();
-    pool->setHost("localhost");
-    pool->setPort("6379");
-    ASSERT_EQ(pool->initPool(), true);
+    ASSERT_EQ(pool->initPool(host, port), true);
     std::shared_ptr<RedisConnection> conn;
     ASSERT_EQ(pool->getConnection(conn), true);
     pool->returnConnection(conn);
@@ -32,14 +32,14 @@ TEST_F(ConnectionPoolTest, redis_pool_test) {
 
 TEST_F(ConnectionPoolTest, mysql_pool_test) {
     using namespace tool;
+    size_t poolsize(10);
+    size_t keepinterval(15);
+    std::string host("127.0.0.1");
+    std::string port("3306");
+    std::string user("root");
+    std::string password("smithgo");
     auto pool = std::make_shared<ConnectionPool<MysqlConnection>>();
-    pool->setHost("127.0.0.1");
-    pool->setPort("3306");
-    pool->setUser("root");
-    pool->setPassword("smithgo");
-    pool->setPoolSize(10);
-    pool->setKeepInterval(15);
-    ASSERT_EQ(pool->initPool(), true);
+    ASSERT_EQ(pool->initPool(host, port, user, password), true);
     std::shared_ptr<MysqlConnection> conn;
     ASSERT_EQ(pool->getConnection(conn), true);
     ASSERT_NE(conn, nullptr);
