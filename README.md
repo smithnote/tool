@@ -59,10 +59,10 @@ int main(int argc, char** argv) {
     #include "redis_connection.h"
     
     int main(int argc, char** argv) {
-        tool::ConnectionPool<tool::RedisConnection> pool;
-        pool.setHost("127.0.0.1");
-        pool.setPort("6379");
-        pool.initPool();
+        tool::ConnectionPool<tool::RedisConnection> pool(8);
+        std::string host("127.0.0.1");
+        std::string port("6379");
+        pool.initPool(host, port);
         std::shared_ptr<tool::RedisConnection> conn;
         pool.getConnection(conn);
         // conn to do something
@@ -74,15 +74,14 @@ int main(int argc, char** argv) {
     * tool::Connection::disconnect(); // 断开连接
     * tool::Connection::isAlive(); // 连接是否有效
 
+    在初始化话词的时候，将Connection的构造参数加上
+
     ```
     #include "connection_pool.h"
     
     class UserConnection: public tool::Connection {
       public:
-        UserConnection(const std::string &host, const std::string &port,
-                         const std::string &user, const std::string &password,
-                         const std::string &db)
-            : tool::Connection(host, port, user, password, db) {}
+        UserConnection(const std::string arg){}
         ~UserConnection() {}
         
         virtual bool connect() {
@@ -96,13 +95,14 @@ int main(int argc, char** argv) {
         virtual bool isAlive() {
             // do something to jeduge conn is alive 
         }
+      private:
+        // some data
     };
     
     int main(int argc, char** argv) {
+        std::string arg;
         tool::ConnectionPool<tool::UserConnection> pool;
-        pool.setHost("127.0.0.1");
-        pool.setPort("6379");
-        pool.initPool();
+        pool.initPool(arg);
         std::shared_ptr<tool::UserConnection> conn;
         pool.getConnection(conn);
         // conn to do something
