@@ -6,6 +6,7 @@
 #define TOOL_CONNECTION_POOL_H_
 
 #include <unistd.h>
+#include <utility>
 #include <vector>
 #include <queue>
 #include <memory>
@@ -57,7 +58,7 @@ class ConnectionPool {
             return true;
         }
         for (size_t i = 0; i < pool_size_; ++i) {
-            auto conn = std::make_shared<Conn>(args...);
+            auto conn = std::make_shared<Conn>(std::forward<Args>(args)...);
             if (!conn->connect()) {
                 continue;
             }
