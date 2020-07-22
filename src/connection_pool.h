@@ -18,9 +18,6 @@
 
 namespace tool {
 
-template<class Conn>
-class ConnectionPool;
-
 class Connection {
   public:
     Connection() {}
