@@ -21,17 +21,13 @@ namespace tool {
 class Connection {
   public:
     Connection() {}
-    virtual ~Connection() {
-        disconnect();
-    }
+    virtual ~Connection() {}
 
-    virtual bool connect() = 0;
+    virtual bool connect(const int timeout) = 0;
 
     virtual bool isAlive() = 0;
     
-    virtual bool disconnect() {
-        return true;
-    }
+    virtual bool disconnect() = 0;
 };
 
 
@@ -41,6 +37,11 @@ class ConnectionPool {
     ConnectionPool(size_t pool_size = 8, size_t keep_interval = 60) 
         : pool_size_(pool_size), keep_interval_(keep_interval),
           init_(false), running_(false) {}
+    ConnectionPool(const ConnectionPool &) = delete;
+    ConnectionPool(const ConnectionPool &&) = delete;
+    ConnectionPool& operator=(const ConnectionPool &) = delete;
+    ConnectionPool&& operator=(const ConnectionPool &&) = delete;
+
     ~ConnectionPool() {
         if (running_) {
             running_ = false;

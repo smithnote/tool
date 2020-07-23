@@ -21,7 +21,7 @@ class MysqlConnection : public Connection {
         disconnect();
     }
     
-    virtual bool connect() override;
+    virtual bool connect(const int timeout = 30) override;
 
     virtual bool disconnect() override;
 

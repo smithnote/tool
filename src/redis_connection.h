@@ -19,7 +19,7 @@ class RedisConnection: public Connection {
           user_(user), password_(password), db_(db) {}
     ~RedisConnection() {}
     
-    virtual bool connect() override;
+    virtual bool connect(const int timeout=30) override;
 
     virtual bool disconnect() override;
 

@@ -7,7 +7,7 @@
 
 namespace tool {
 
-bool MysqlConnection::connect() {
+bool MysqlConnection::connect(const int timeout) {
     conn = mysql_init(NULL);
     if (!conn) {
         return false;
