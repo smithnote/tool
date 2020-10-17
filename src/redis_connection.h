@@ -25,6 +25,10 @@ class RedisConnection: public Connection {
 
     virtual bool isAlive() override;
 
+    inline std::string version() {
+        return "helloworld";
+    }
+
   public:
     redisContext *redis;
     

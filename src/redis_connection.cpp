@@ -7,8 +7,7 @@
 namespace tool {
 
 bool RedisConnection::connect(const int timeout) {
-    struct timeval tv;
-    tv.tv_sec = timeout;
+    struct timeval tv = {timeout, 0};
     redis = redisConnectWithTimeout(host_.c_str(), atoi(port_.c_str()), tv);
     if (redis == NULL || redis->err) {
         return false;

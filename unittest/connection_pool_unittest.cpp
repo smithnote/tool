@@ -21,13 +21,14 @@ class ConnectionPoolTest: public testing::Test {
 
 TEST_F(ConnectionPoolTest, redis_pool_test) {
     using namespace tool;
-    std::string host("localhost");
+    std::string host("127.0.0.1");
     std::string port("6379");
     auto pool = std::make_shared<ConnectionPool<RedisConnection>>();
     ASSERT_EQ(pool->initPool(host, port), true);
     std::shared_ptr<RedisConnection> conn;
     ASSERT_EQ(pool->getConnection(conn), true);
     pool->returnConnection(conn);
+    ASSERT_EQ(pool->run(&RedisConnection::version) == "helloworld", true);
 }
 
 TEST_F(ConnectionPoolTest, mysql_pool_test) {
