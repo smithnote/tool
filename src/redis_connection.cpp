@@ -6,9 +6,9 @@
 
 namespace tool {
 
-bool RedisConnection::connect() {
-    struct timeval timeout = { 1, 500000};  // 1.5s
-    redis = redisConnectWithTimeout(host_.c_str(), atoi(port_.c_str()), timeout);
+bool RedisConnection::connect(const int timeout) {
+    struct timeval tv = {timeout, 0};
+    redis = redisConnectWithTimeout(host_.c_str(), atoi(port_.c_str()), tv);
     if (redis == NULL || redis->err) {
         return false;
     }

@@ -5,6 +5,7 @@
 #ifndef TOOL_CONNECTION_POOL_H_
 #define TOOL_CONNECTION_POOL_H_
 
+#include <type_traits>
 #include <unistd.h>
 #include <utility>
 #include <vector>
@@ -18,23 +19,16 @@
 
 namespace tool {
 
-template<class Conn>
-class ConnectionPool;
-
 class Connection {
   public:
     Connection() {}
-    virtual ~Connection() {
-        disconnect();
-    }
+    virtual ~Connection() {}
 
-    virtual bool connect() = 0;
+    virtual bool connect(const int timeout) = 0;
 
     virtual bool isAlive() = 0;
     
-    virtual bool disconnect() {
-        return true;
-    }
+    virtual bool disconnect() = 0;
 };
 
 
@@ -43,7 +37,14 @@ class ConnectionPool {
   public:
     ConnectionPool(size_t pool_size = 8, size_t keep_interval = 60) 
         : pool_size_(pool_size), keep_interval_(keep_interval),
-          init_(false), running_(false) {}
+        init_(false), running_(false) {
+        static_assert(std::is_base_of<Connection, Conn>::value, "conn not valid");
+    }
+    ConnectionPool(const ConnectionPool &) = delete;
+    ConnectionPool(const ConnectionPool &&) = delete;
+    ConnectionPool& operator=(const ConnectionPool &) = delete;
+    ConnectionPool&& operator=(const ConnectionPool &&) = delete;
+
     ~ConnectionPool() {
         if (running_) {
             running_ = false;
@@ -69,9 +70,16 @@ class ConnectionPool {
         }
         init_ = true;
         running_ = true;
-        keep_alive_thread_ = std::make_shared<std::thread>(&ConnectionPool<Conn>::keepAlive,
-                                                           this);
+        keep_alive_thread_.reset(new std::thread(&ConnectionPool<Conn>::keepAlive, this));
         return true;
+    }
+    
+    std::shared_ptr<Conn> getConnection() {
+        std::shared_ptr<Conn> conn_ptr;
+        if (!getConnection(conn_ptr)) {
+            return {nullptr};
+        }
+        return conn_ptr;
     }
 
     bool getConnection(std::shared_ptr<Conn> &conn) {
@@ -100,6 +108,15 @@ class ConnectionPool {
         pool_mutex_.unlock();
         pool_cond_.notify_one();
         return true;
+    }
+
+    template<class F, typename... Args>
+    auto run(F&& f, Args&&... args) -> decltype((getConnection().get()->*f)(args...)) {
+        std::shared_ptr<Conn> con_ptr;
+        getConnection(con_ptr);
+        auto res = (con_ptr.get()->*f)(args...);
+        returnConnection(con_ptr);
+        return std::move(res);
     }
 
   private:

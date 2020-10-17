@@ -19,11 +19,15 @@ class RedisConnection: public Connection {
           user_(user), password_(password), db_(db) {}
     ~RedisConnection() {}
     
-    virtual bool connect() override;
+    virtual bool connect(const int timeout=30) override;
 
     virtual bool disconnect() override;
 
     virtual bool isAlive() override;
+
+    inline std::string version() {
+        return "helloworld";
+    }
 
   public:
     redisContext *redis;

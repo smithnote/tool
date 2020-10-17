@@ -12,6 +12,7 @@ ExternalProject_Add(
                -DBUILD_SHARED_LIBS=OFF
     LOG_DOWNLOAD 1
     LOG_INSTALL 1
+    UPDATE_DISCONNECTED 1
 )
 
 ExternalProject_Add(
@@ -22,6 +23,7 @@ ExternalProject_Add(
                -DBUILD_SHARED_LIBS=OFF
     LOG_DOWNLOAD 1
     LOG_INSTALL 1
+    UPDATE_DISCONNECTED 1
 )
 
 ExternalProject_Add(
@@ -31,6 +33,7 @@ ExternalProject_Add(
     CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${DEPS_INSTALL_DIR}
     LOG_DOWNLOAD 1
     LOG_INSTALL 1
+    UPDATE_DISCONNECTED 1
 )
 
 add_dependencies(deps
