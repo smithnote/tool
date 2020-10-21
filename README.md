@@ -67,6 +67,8 @@ int main(int argc, char** argv) {
         pool.getConnection(conn);
         // conn to do something
         pool.returnConnection(conn);
+        // run work to pool without get and return client
+        book res = pool.run(&tool::RedisConnection::isAlive);
     }
     ```
 2. 继承 tool::Connection 类用来实现自己的具体连接, 需要实现以下方法
@@ -95,6 +97,11 @@ int main(int argc, char** argv) {
         virtual bool isAlive() {
             // do something to jeduge conn is alive 
         }
+        
+        inline std::string show(std::string &name) {
+            return "hello " + name;
+        }
+
       private:
         // some data
     };
@@ -107,6 +114,8 @@ int main(int argc, char** argv) {
         pool.getConnection(conn);
         // conn to do something
         pool.returnConnection(conn);
+        // without get and return clint
+        assert(pool.run(&tool::UserConnection::show, "smith") == "hello smith");
     }
     ```
 
