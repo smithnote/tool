@@ -22,5 +22,9 @@ set(HZ2PY_FILES hz2py.cpp)
 add_library(hz2py SHARED ${HZ2PY_FILES})
 install(TARGETS hz2py DESTINATION lib)
 
+set(INOTIFY_FILES inotify.cpp)
+add_library(inotify SHARED ${INOTIFY_FILES})
+install(TARGETS inotify DESTINATION lib)
+
 
 install(DIRECTORY . DESTINATION include FILES_MATCHING PATTERN "*.h")

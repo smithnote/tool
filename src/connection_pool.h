@@ -114,7 +114,7 @@ class ConnectionPool {
     auto run(F&& f, Args&&... args) -> decltype((getConnection().get()->*f)(args...)) {
         std::shared_ptr<Conn> con_ptr;
         getConnection(con_ptr);
-        auto res = (con_ptr.get()->*f)(args...);
+        auto res = (con_ptr.get()->*f)(std::forward<Args>(args)...);
         returnConnection(con_ptr);
         return std::move(res);
     }

@@ -9,6 +9,7 @@ cpp的一些常用的工具
 |[segment 中文一元二元切词工具](#segment中文一元二元切词工具)|:heavy_check_mark:|
 |[hz2py 中文转拼音工具](#hz2py中文转拼音工具)|:heavy_check_mark:|
 |[transform 文本转换工具](#transform文本转换工具)|:heavy_check_mark:|
+|[inotify 文件监控工具](#inotify文件监控工具)|:heavy_check_mark:|
 
 ### thread_pool 线程池工具
 
@@ -67,6 +68,8 @@ int main(int argc, char** argv) {
         pool.getConnection(conn);
         // conn to do something
         pool.returnConnection(conn);
+        // run work to pool without get and return client
+        book res = pool.run(&tool::RedisConnection::isAlive);
     }
     ```
 2. 继承 tool::Connection 类用来实现自己的具体连接, 需要实现以下方法
@@ -95,6 +98,11 @@ int main(int argc, char** argv) {
         virtual bool isAlive() {
             // do something to jeduge conn is alive 
         }
+        
+        inline std::string show(std::string &name) {
+            return "hello " + name;
+        }
+
       private:
         // some data
     };
@@ -107,6 +115,8 @@ int main(int argc, char** argv) {
         pool.getConnection(conn);
         // conn to do something
         pool.returnConnection(conn);
+        // without get and return clint
+        assert(pool.run(&tool::UserConnection::show, "smith") == "hello smith");
     }
     ```
 
@@ -180,6 +190,21 @@ int main(int argc, char** argv) {
     std::cout << "raw_string:" << src_string << std::endl;
     std::cout << "encode_string:" << encode_string << std::endl;
     std::cout << "decode_string:" << decode_string << std::endl;
+    return 0;
+}
+```
+
+### inotify文件监控工具
+使用cpp对inotify的一个封装使用，独立线程处理回调函数, 例子:
+```
+int main() {
+    FileWatcher file_watcher;
+    file_watcher.isInit();
+    const std::string path1{"/tmp/datachannel.txt"};
+    file_watcher.add(path1, IN_DELETE_SELF|IN_DONT_FOLLOW,
+                     std::make_shared<std::function<void()>>([&](){
+                         ++triger_count;
+                     }));
     return 0;
 }
 ```
