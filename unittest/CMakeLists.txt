@@ -37,3 +37,10 @@ target_link_libraries(hz2py_unittest hz2py gtest pthread)
 install(TARGETS hz2py_unittest DESTINATION bin)
 add_test(NAME unittest_hz2py COMMAND hz2py_unittest
          WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
+add_executable(inotify_unittest inotify_unittest.cpp)
+add_dependencies(inotify_unittest deps)
+target_link_libraries(inotify_unittest inotify gtest pthread)
+install(TARGETS inotify_unittest DESTINATION bin)
+add_test(NAME unittest_inotify COMMAND inotify_unittest
+         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
